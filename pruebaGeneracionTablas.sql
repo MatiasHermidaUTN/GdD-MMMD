@@ -7,41 +7,74 @@ USE [GD2C2023]
 GO
 
 /*Crear el schema con el nombre del grupo*/
-/*CREATE SCHEMA [MMMD]
-GO*/
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'MMMD')
 BEGIN 
 	EXEC ('CREATE SCHEMA MMMD')
 END
 GO
 
-IF OBJECT_ID('MMMD.Agente', 'U') IS NOT NULL DROP TABLE MMMD.Agente;
-IF OBJECT_ID('MMMD.Sucursal', 'U') IS NOT NULL DROP TABLE MMMD.Sucursal;
-IF OBJECT_ID('MMMD.Localidad', 'U') IS NOT NULL DROP TABLE MMMD.Localidad;
-IF OBJECT_ID('MMMD.Provincia', 'U') IS NOT NULL DROP TABLE MMMD.Provincia;
-IF OBJECT_ID('MMMD.Barrio', 'U') IS NOT NULL DROP TABLE MMMD.Barrio;
-IF OBJECT_ID('MMMD.Anuncio', 'U') IS NOT NULL DROP TABLE MMMD.Anuncio;
-IF OBJECT_ID('MMMD.TipoOperacion', 'U') IS NOT NULL DROP TABLE MMMD.TipoOperacion;
-IF OBJECT_ID('MMMD.Moneda', 'U') IS NOT NULL DROP TABLE MMMD.Moneda;
-IF OBJECT_ID('MMMD.EstadoAnuncio', 'U') IS NOT NULL DROP TABLE MMMD.EstadoAnuncio;
-IF OBJECT_ID('MMMD.TipoPeriodo', 'U') IS NOT NULL DROP TABLE MMMD.TipoPeriodo;
-IF OBJECT_ID('MMMD.Inmueble', 'U') IS NOT NULL DROP TABLE MMMD.Inmueble;
-IF OBJECT_ID('MMMD.CaracteristicaBase', 'U') IS NOT NULL DROP TABLE MMMD.CaracteristicaBase;
-IF OBJECT_ID('MMMD.CaracteristicaPorInmueble', 'U') IS NOT NULL DROP TABLE MMMD.CaracteristicaPorInmueble;
-IF OBJECT_ID('MMMD.TipoInmueble', 'U') IS NOT NULL DROP TABLE MMMD.TipoInmueble;
-IF OBJECT_ID('MMMD.CantidadAmbientes', 'U') IS NOT NULL DROP TABLE MMMD.CantidadAmbientes;
-IF OBJECT_ID('MMMD.DisposicionInmueble', 'U') IS NOT NULL DROP TABLE MMMD.DisposicionInmueble;
-IF OBJECT_ID('MMMD.EstadoInmueble', 'U') IS NOT NULL DROP TABLE MMMD.EstadoInmueble;
-IF OBJECT_ID('MMMD.Propietario', 'U') IS NOT NULL DROP TABLE MMMD.Propietario;
-IF OBJECT_ID('MMMD.Venta', 'U') IS NOT NULL DROP TABLE MMMD.Venta;
-IF OBJECT_ID('MMMD.Comprador', 'U') IS NOT NULL DROP TABLE MMMD.Comprador;
-IF OBJECT_ID('MMMD.PagoVenta', 'U') IS NOT NULL DROP TABLE MMMD.PagoVenta;
-IF OBJECT_ID('MMMD.MedioDePago', 'U') IS NOT NULL DROP TABLE MMMD.MedioDePago;
-IF OBJECT_ID('MMMD.Alquiler', 'U') IS NOT NULL DROP TABLE MMMD.Alquiler;
-IF OBJECT_ID('MMMD.Inquilino', 'U') IS NOT NULL DROP TABLE MMMD.Inquilino;
-IF OBJECT_ID('MMMD.EstadoAlquiler', 'U') IS NOT NULL DROP TABLE MMMD.EstadoAlquiler;
-IF OBJECT_ID('MMMD.DetalleAlq', 'U') IS NOT NULL DROP TABLE MMMD.DetalleAlq;
-IF OBJECT_ID('MMMD.PagoAlquiler', 'U') IS NOT NULL DROP TABLE MMMD.PagoAlquiler;
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------- BORRAR TABLAS --------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+
+IF OBJECT_ID('MMMD.Alquiler', 'U') IS NOT NULL DROP TABLE MMMD.Alquiler
+IF OBJECT_ID('MMMD.DetalleAlq', 'U') IS NOT NULL DROP TABLE MMMD.DetalleAlq
+IF OBJECT_ID('MMMD.Inquilino', 'U') IS NOT NULL DROP TABLE MMMD.Inquilino
+IF OBJECT_ID('MMMD.EstadoAlquiler', 'U') IS NOT NULL DROP TABLE MMMD.EstadoAlquiler
+IF OBJECT_ID('MMMD.PagoAlquiler', 'U') IS NOT NULL DROP TABLE MMMD.PagoAlquiler
+IF OBJECT_ID('MMMD.Venta', 'U') IS NOT NULL DROP TABLE MMMD.Venta
+IF OBJECT_ID('MMMD.Comprador', 'U') IS NOT NULL DROP TABLE MMMD.Comprador
+IF OBJECT_ID('MMMD.PagoVenta', 'U') IS NOT NULL DROP TABLE MMMD.PagoVenta
+IF OBJECT_ID('MMMD.MedioDePago', 'U') IS NOT NULL DROP TABLE MMMD.MedioDePago
+IF OBJECT_ID('MMMD.Anuncio', 'U') IS NOT NULL DROP TABLE MMMD.Anuncio
+IF OBJECT_ID('MMMD.Moneda', 'U') IS NOT NULL DROP TABLE MMMD.Moneda
+IF OBJECT_ID('MMMD.TipoOperacion', 'U') IS NOT NULL DROP TABLE MMMD.TipoOperacion
+IF OBJECT_ID('MMMD.EstadoAnuncio', 'U') IS NOT NULL DROP TABLE MMMD.EstadoAnuncio
+IF OBJECT_ID('MMMD.TipoPeriodo', 'U') IS NOT NULL DROP TABLE MMMD.TipoPeriodo
+IF OBJECT_ID('MMMD.Agente', 'U') IS NOT NULL DROP TABLE MMMD.Agente
+IF OBJECT_ID('MMMD.Sucursal', 'U') IS NOT NULL DROP TABLE MMMD.Sucursal
+IF OBJECT_ID('MMMD.CaracteristicaPorInmueble', 'U') IS NOT NULL DROP TABLE MMMD.CaracteristicaPorInmueble
+IF OBJECT_ID('MMMD.CaracteristicaBase', 'U') IS NOT NULL DROP TABLE MMMD.CaracteristicaBase
+IF OBJECT_ID('MMMD.Inmueble', 'U') IS NOT NULL DROP TABLE MMMD.Inmueble
+IF OBJECT_ID('MMMD.TipoInmueble', 'U') IS NOT NULL DROP TABLE MMMD.TipoInmueble
+IF OBJECT_ID('MMMD.CantidadAmbientes', 'U') IS NOT NULL DROP TABLE MMMD.CantidadAmbientes
+IF OBJECT_ID('MMMD.DisposicionInmueble', 'U') IS NOT NULL DROP TABLE MMMD.DisposicionInmueble
+IF OBJECT_ID('MMMD.EstadoInmueble', 'U') IS NOT NULL DROP TABLE MMMD.EstadoInmueble
+IF OBJECT_ID('MMMD.Propietario', 'U') IS NOT NULL DROP TABLE MMMD.Propietario
+IF OBJECT_ID('MMMD.Barrio', 'U') IS NOT NULL DROP TABLE MMMD.Barrio
+IF OBJECT_ID('MMMD.Localidad', 'U') IS NOT NULL DROP TABLE MMMD.Localidad
+IF OBJECT_ID('MMMD.Provincia', 'U') IS NOT NULL DROP TABLE MMMD.Provincia
+
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------- BORRAR PROCS ---------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+
+IF OBJECT_ID('MMMD.Migrar_Comprador') IS NOT NULL DROP procedure MMMD.Migrar_Comprador
+IF OBJECT_ID('MMMD.Migrar_Moneda') IS NOT NULL DROP procedure MMMD.Migrar_Moneda
+IF OBJECT_ID('MMMD.Migrar_MedioDePago') IS NOT NULL DROP procedure MMMD.Migrar_MedioDePago
+IF OBJECT_ID('MMMD.Migrar_Propietario') IS NOT NULL DROP procedure MMMD.Migrar_Propietario
+IF OBJECT_ID('MMMD.Migrar_Provincia') IS NOT NULL DROP procedure MMMD.Migrar_Provincia
+IF OBJECT_ID('MMMD.Migrar_Localidad') IS NOT NULL DROP procedure MMMD.Migrar_Localidad
+IF OBJECT_ID('MMMD.Migrar_Barrio') IS NOT NULL DROP procedure MMMD.Migrar_Barrio
+IF OBJECT_ID('MMMD.Migrar_Sucursal') IS NOT NULL DROP procedure MMMD.Migrar_Sucursal
+IF OBJECT_ID('MMMD.Migrar_Agente') IS NOT NULL DROP procedure MMMD.Migrar_Agente
+IF OBJECT_ID('MMMD.Migrar_DetalleAlq') IS NOT NULL DROP procedure MMMD.Migrar_DetalleAlq
+IF OBJECT_ID('MMMD.Migrar_Inquilino') IS NOT NULL DROP procedure MMMD.Migrar_Inquilino
+IF OBJECT_ID('MMMD.Migrar_EstadoAlquiler') IS NOT NULL DROP procedure MMMD.Migrar_EstadoAlquiler
+IF OBJECT_ID('MMMD.Migrar_Alquiler') IS NOT NULL DROP procedure MMMD.Migrar_Alquiler
+IF OBJECT_ID('MMMD.Migrar_CantidadAmbientes') IS NOT NULL DROP procedure MMMD.Migrar_CantidadAmbientes
+IF OBJECT_ID('MMMD.Migrar_EstadoInmueble') IS NOT NULL DROP procedure MMMD.Migrar_EstadoInmueble
+IF OBJECT_ID('MMMD.Migrar_TipoInmueble') IS NOT NULL DROP procedure MMMD.Migrar_TipoInmueble
+IF OBJECT_ID('MMMD.Migrar_DisposicionInmueble') IS NOT NULL DROP procedure MMMD.Migrar_DisposicionInmueble
+IF OBJECT_ID('MMMD.Migrar_EstadoAnuncio') IS NOT NULL DROP procedure MMMD.Migrar_EstadoAnuncio
+IF OBJECT_ID('MMMD.Migrar_TipoPeriodo') IS NOT NULL DROP procedure MMMD.Migrar_TipoPeriodo
+IF OBJECT_ID('MMMD.Migrar_TipoOperacion') IS NOT NULL DROP procedure MMMD.Migrar_TipoOperacion
+IF OBJECT_ID('MMMD.Migrar_CaracteristicaBase') IS NOT NULL DROP procedure MMMD.Migrar_CaracteristicaBase
+IF OBJECT_ID('MMMD.Migrar_PagoAlquiler') IS NOT NULL DROP procedure MMMD.Migrar_PagoAlquiler
+IF OBJECT_ID('MMMD.Migrar_PagoVenta') IS NOT NULL DROP procedure MMMD.Migrar_PagoVenta
+IF OBJECT_ID('MMMD.Migrar_Venta') IS NOT NULL DROP procedure MMMD.Migrar_Venta
+IF OBJECT_ID('MMMD.Migrar_Anuncio') IS NOT NULL DROP procedure MMMD.Migrar_Anuncio
+IF OBJECT_ID('MMMD.Migrar_Inmueble') IS NOT NULL DROP procedure MMMD.Migrar_Inmueble
 
 ------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------- TABLAS -----------------------------------------------------
@@ -339,6 +372,11 @@ BEGIN
 		m.VENTA_MONEDA
 	FROM gd_esquema.Maestra m
 	WHERE m.VENTA_MONEDA IS NOT NULL
+	UNION
+	SELECT DISTINCT
+		m.PAGO_VENTA_MONEDA
+	FROM gd_esquema.Maestra m
+	WHERE m.PAGO_VENTA_MONEDA IS NOT NULL
 END
 GO
 
@@ -490,7 +528,7 @@ BEGIN
 		m.DETALLE_ALQ_NRO_PERIODO_FIN, 
 		m.DETALLE_ALQ_PRECIO 
 	FROM gd_esquema.Maestra m
-	WHERE ALQUILER_CODIGO IS NOT NULL
+	WHERE m.ALQUILER_CODIGO IS NOT NULL
 END 
 GO
 
@@ -513,7 +551,7 @@ BEGIN
 		m.INQUILINO_MAIL, 
 		m.INQUILINO_FECHA_NAC
 	FROM gd_esquema.Maestra m
-	WHERE INQUILINO_APELLIDO IS NOT NULL
+	WHERE m.INQUILINO_APELLIDO IS NOT NULL
 END
 GO
 
@@ -524,7 +562,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.ALQUILER_ESTADO 
 	FROM gd_esquema.Maestra m
-	WHERE ALQUILER_ESTADO IS NOT NULL
+	WHERE m.ALQUILER_ESTADO IS NOT NULL
 END
 GO
 
@@ -557,7 +595,7 @@ BEGIN
 		and i.INQUILINO_APELLIDO = m.INQUILINO_APELLIDO
 		and i.INQUILINO_NOMBRE = m.INQUILINO_NOMBRE
 	JOIN MMMD.EstadoAlquiler e ON e.ESTADO_ALQUILER_NOMBRE = m.ALQUILER_ESTADO 
-	WHERE ALQUILER_CODIGO IS NOT NULL
+	WHERE m.ALQUILER_CODIGO IS NOT NULL
 END
 GO
 
@@ -568,7 +606,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.INMUEBLE_CANT_AMBIENTES 
 	FROM gd_esquema.Maestra m
-	WHERE INMUEBLE_CANT_AMBIENTES IS NOT NULL
+	WHERE m.INMUEBLE_CANT_AMBIENTES IS NOT NULL
 END
 GO
 
@@ -579,7 +617,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.INMUEBLE_ESTADO 
 	FROM gd_esquema.Maestra m
-	WHERE INMUEBLE_ESTADO IS NOT NULL
+	WHERE m.INMUEBLE_ESTADO IS NOT NULL
 END
 GO
 
@@ -590,7 +628,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.INMUEBLE_TIPO_INMUEBLE 
 	FROM gd_esquema.Maestra m
-	WHERE INMUEBLE_TIPO_INMUEBLE IS NOT NULL
+	WHERE m.INMUEBLE_TIPO_INMUEBLE IS NOT NULL
 END
 GO
 
@@ -601,7 +639,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.INMUEBLE_DISPOSICION 
 	FROM gd_esquema.Maestra m
-	WHERE INMUEBLE_DISPOSICION IS NOT NULL
+	WHERE m.INMUEBLE_DISPOSICION IS NOT NULL
 END
 GO
 
@@ -612,7 +650,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.ANUNCIO_ESTADO 
 	FROM gd_esquema.Maestra m
-	WHERE ANUNCIO_ESTADO IS NOT NULL
+	WHERE m.ANUNCIO_ESTADO IS NOT NULL
 END
 GO
 
@@ -625,9 +663,9 @@ BEGIN
 			WHEN ANUNCIO_TIPO_PERIODO = 'Periodo dia' THEN 'Periodo Dia'
 			WHEN ANUNCIO_TIPO_PERIODO = '0' THEN 'N/A'
 			ELSE ANUNCIO_TIPO_PERIODO
-    END
+		END
 	FROM gd_esquema.Maestra m
-	WHERE ANUNCIO_TIPO_PERIODO IS NOT NULL
+	WHERE m.ANUNCIO_TIPO_PERIODO IS NOT NULL
 END
 GO
 
@@ -638,7 +676,7 @@ BEGIN
 	SELECT DISTINCT 
 		m.ANUNCIO_TIPO_OPERACION 
 	FROM gd_esquema.Maestra m
-	WHERE ANUNCIO_TIPO_OPERACION IS NOT NULL
+	WHERE m.ANUNCIO_TIPO_OPERACION IS NOT NULL
 END
 GO
 
@@ -732,11 +770,11 @@ BEGIN
 		m.ANUNCIO_CODIGO,
 		c.COMPRADOR_CODIGO
 	FROM gd_esquema.Maestra m
-	JOIN MMMD.Moneda d ON d.MONEDA_NOMBRE = m.PAGO_VENTA_MONEDA
+	JOIN MMMD.Moneda d ON d.MONEDA_NOMBRE = m.VENTA_MONEDA
 	JOIN MMMD.Comprador c ON c.COMPRADOR_DNI = m.COMPRADOR_DNI 
 		and c.COMPRADOR_APELLIDO = m.COMPRADOR_APELLIDO
 		and c.COMPRADOR_NOMBRE = m.COMPRADOR_NOMBRE
-	WHERE m.PAGO_VENTA_CODIGO IS NOT NULL
+	WHERE m.VENTA_CODIGO IS NOT NULL
 END
 GO
 
@@ -768,13 +806,18 @@ BEGIN
 		m.INMUEBLE_CODIGO
 	FROM gd_esquema.Maestra m
 	JOIN MMMD.TipoOperacion t ON m.ANUNCIO_TIPO_OPERACION = t.OP_NOMBRE
-	JOIN MMMD.Moneda d ON m.PAGO_VENTA_MONEDA = d.MONEDA_NOMBRE 
+	JOIN MMMD.Moneda d ON m.ANUNCIO_MONEDA = d.MONEDA_NOMBRE 
 	JOIN MMMD.EstadoAnuncio a ON m.ANUNCIO_ESTADO = a.ESTADO_ANUNCIO_NOMBRE
-	JOIN MMMD.TipoPeriodo p ON m.ANUNCIO_TIPO_PERIODO = p.TIPO_PERIODO_NOMBRE
+	left JOIN MMMD.TipoPeriodo p ON p.TIPO_PERIODO_NOMBRE =
+		(CASE
+			WHEN ANUNCIO_TIPO_PERIODO = 'Periodo dia' THEN 'Periodo Dia'
+			WHEN ANUNCIO_TIPO_PERIODO = '0' THEN 'N/A'
+			ELSE ANUNCIO_TIPO_PERIODO
+		END)
 	JOIN MMMD.Agente g ON g.AGENTE_DNI = m.AGENTE_DNI 
 		and g.AGENTE_APELLIDO = m.AGENTE_APELLIDO
 		and g.AGENTE_NOMBRE = m.AGENTE_NOMBRE
-	WHERE m.ANUNCIO_CODIGO IS NOT NULL
+	WHERE m.ANUNCIO_CODIGO IS NOT NULL and m.INMUEBLE_CODIGO is not null
 END
 GO
 
@@ -812,6 +855,8 @@ BEGIN
 		p.PROPIETARIO_CODIGO
 	FROM gd_esquema.Maestra m
 	JOIN MMMD.Barrio b ON m.INMUEBLE_BARRIO = b.BARRIO_NOMBRE
+	JOIN MMMD.Localidad l ON m.INMUEBLE_LOCALIDAD = l.LOCALIDAD_NOMBRE and b.BARRIO_LOCALIDAD_CODIGO = l.LOCALIDAD_CODIGO
+	JOIN MMMD.Provincia prov ON m.INMUEBLE_PROVINCIA = prov.PROVINCIA_NOMBRE and l.LOCALIDAD_PROVINCIA_CODIGO = prov.PROVINCIA_CODIGO
 	JOIN MMMD.TipoInmueble t ON m.INMUEBLE_TIPO_INMUEBLE = t.TIPOINMUEBLE_NOMBRE
 	JOIN MMMD.CantidadAmbientes c ON m.INMUEBLE_CANT_AMBIENTES = c.AMBIENTES_NOMBRE
 	JOIN MMMD.DisposicionInmueble d ON m.INMUEBLE_DISPOSICION = d.DISPOSICION_NOMBRE
@@ -819,8 +864,19 @@ BEGIN
 	JOIN MMMD.Propietario p ON p.PROPIETARIO_DNI = m.PROPIETARIO_DNI 
 		and p.PROPIETARIO_APELLIDO = m.PROPIETARIO_APELLIDO
 		and p.PROPIETARIO_NOMBRE = m.PROPIETARIO_NOMBRE
+	WHERE m.INMUEBLE_CODIGO IS NOT NULL
 END
 GO
+
+CREATE PROCEDURE MMMD.Migrar_CaracteristicasPorImueble AS
+BEGIN
+	
+END
+GO
+
+----------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------- EXECS --------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
 
 EXEC MMMD.Migrar_Comprador
 EXEC MMMD.Migrar_Moneda
@@ -848,33 +904,7 @@ EXEC MMMD.Migrar_PagoVenta
 EXEC MMMD.Migrar_Venta
 EXEC MMMD.Migrar_Anuncio
 EXEC MMMD.Migrar_Inmueble
-
-DROP PROCEDURE MMMD.Migrar_Comprador
-DROP PROCEDURE MMMD.Migrar_Moneda
-DROP PROCEDURE MMMD.Migrar_MedioDePago
-DROP PROCEDURE MMMD.Migrar_Propietario
-DROP PROCEDURE MMMD.Migrar_Provincia
-DROP PROCEDURE MMMD.Migrar_Localidad
-DROP PROCEDURE MMMD.Migrar_Barrio
-DROP PROCEDURE MMMD.Migrar_Sucursal
-DROP PROCEDURE MMMD.Migrar_Agente
-DROP PROCEDURE MMMD.Migrar_DetalleAlq
-DROP PROCEDURE MMMD.Migrar_Inquilino
-DROP PROCEDURE MMMD.Migrar_EstadoAlquiler
-DROP PROCEDURE MMMD.Migrar_Alquiler
-DROP PROCEDURE MMMD.Migrar_CantidadAmbientes
-DROP PROCEDURE MMMD.Migrar_EstadoInmueble
-DROP PROCEDURE MMMD.Migrar_TipoInmueble
-DROP PROCEDURE MMMD.Migrar_DisposicionInmueble
-DROP PROCEDURE MMMD.Migrar_EstadoAnuncio
-DROP PROCEDURE MMMD.Migrar_TipoPeriodo
-DROP PROCEDURE MMMD.Migrar_TipoOperacion
-DROP PROCEDURE MMMD.Migrar_CaracteristicaBase
-DROP PROCEDURE MMMD.Migrar_PagoAlquiler
-DROP PROCEDURE MMMD.Migrar_PagoVenta
-DROP PROCEDURE MMMD.Migrar_Venta
-DROP PROCEDURE MMMD.Migrar_Anuncio
-DROP PROCEDURE MMMD.Migrar_Inmueble
+GO
 
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------- CONSTRAINTS ----------------------------------------------------
@@ -1064,7 +1094,7 @@ REFERENCES [MMMD].[MedioDePago] (MEDIO_PAGO_CODIGO)
 
 /*************************************************************************************************************/
 /*************************************************************************************************************/
-/********************************************PARA BORRAR LAS TABLAS: *****************************************/
+/********************************************PARA BORRAR LAS FK: *********************************************/
 /*************************************************************************************************************/
 /*************************************************************************************************************/
 
@@ -1158,32 +1188,3 @@ DROP CONSTRAINT FK_AlquilerPagoCodigo
 
 ALTER TABLE [MMMD].[PagoAlquiler]
 DROP CONSTRAINT FK_MedioPagoPagoAlquilerCodigo
-
-
-DROP TABLE [MMMD].[Agente]
-DROP TABLE [MMMD].[Sucursal]
-DROP TABLE [MMMD].[Localidad]
-DROP TABLE [MMMD].[Provincia]
-DROP TABLE [MMMD].[Barrio]
-DROP TABLE [MMMD].[Anuncio]
-DROP TABLE [MMMD].[TipoOperacion]
-DROP TABLE [MMMD].[Moneda]
-DROP TABLE [MMMD].[EstadoAnuncio]
-DROP TABLE [MMMD].[TipoPeriodo]
-DROP TABLE [MMMD].[Inmueble]
-DROP TABLE [MMMD].[CaracteristicaBase]
-DROP TABLE [MMMD].[CaracteristicaPorInmueble]
-DROP TABLE [MMMD].[TipoInmueble]
-DROP TABLE [MMMD].[CantidadAmbientes]
-DROP TABLE [MMMD].[DisposicionInmueble]
-DROP TABLE [MMMD].[EstadoInmueble]
-DROP TABLE [MMMD].[Propietario]
-DROP TABLE [MMMD].[Venta]
-DROP TABLE [MMMD].[Comprador]
-DROP TABLE [MMMD].[PagoVenta]
-DROP TABLE [MMMD].[MedioDePago]
-DROP TABLE [MMMD].[Alquiler]
-DROP TABLE [MMMD].[Inquilino]
-DROP TABLE [MMMD].[EstadoAlquiler]
-DROP TABLE [MMMD].[DetalleAlq]
-DROP TABLE [MMMD].[PagoAlquiler]
